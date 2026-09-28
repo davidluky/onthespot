@@ -18,15 +18,19 @@
 
 ## 🎵 A modern, easy-to-use music downloader written in Python
 
-**OnTheSpot** is a feature-rich music downloader that supports multiple streaming services, manages a local music library with metadata and cover art, and provides a beautiful web interface for control and monitoring.
+**OnTheSpot** is a feature-rich music downloader that supports multiple streaming services, unlike similar projects, files and metadata are sourced directly from the service of your choosing.
 
+
+<a href="https://discord.gg/GCQwRBFPk9">Join Discord</a>
+·
+<a href="https://github.com/ots-downloader/onthespot/issues/new?assignees=&labels=bug&projects=&template=bug-report.yml">Report Bug</a>
+·
+<a href="https://github.com/ots-downloader/onthespot/issues/new?assignees=&labels=enhancement&projects=&template=feature_request.yml">Request Feature</a>
 
 
 </div>
 
 <br/>
-
-
 
 ## 🚀 Quick Start
 
@@ -59,6 +63,7 @@ networks:
   ots-network:
     driver: bridge
 ```
+
 #### From Repo
 ```bash
 git clone --branch fastapi-dev --single-branch https://github.com/ots-downloader/onthespot.git
@@ -90,13 +95,14 @@ uv run python main.py
 
 Open `http://127.0.0.1:8000` to access the web interface.
 
-
+## Screenshots
+![Search](assets/images/search.png)
+![Download Queue](assets/images/download_queue.png)
+![Settings](assets/images/settings.png)
 
 <br/>
 
-
 ## 📦 Features
-
 
 ### Music Download & Services
 
