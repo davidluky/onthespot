@@ -1,4 +1,4 @@
-# <div align="center"><img src="https://raw.githubusercontent.com/ots-downloader/onthespot/main/assets/logos/onthespot_icon.png" width="64" height="64" alt="OnTheSpot Logo" /><br/>OnTheSpot</div>
+# <div align="center"><img src="https://github.com/ots-downloader/onthespot/blob/fastapi-rolling/assets/images/repository_logo.png?raw=true" width="350" alt="OnTheSpot Logo" />
 
 <div align="center">
 
