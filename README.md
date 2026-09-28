@@ -1,35 +1,44 @@
+# <div align="center"><img src="https://raw.githubusercontent.com/ots-downloader/onthespot/main/assets/logos/onthespot_icon.png" width="64" height="64" alt="OnTheSpot Logo" /><br/>OnTheSpot</div>
+
 <div align="center">
 
-<div style="text-align: center;">
-  <picture>
-    <img src="assets/logos/repository_logo.png" alt="Repository Logo" width="350px">
-  </picture>
+[![GitHub Stars](https://img.shields.io/github/stars/ots-downloader/onthespot?style=for-the-badge&label=Stars&labelColor=001224&color=1DB954)](https://github.com/ots-downloader/onthespot/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/ots-downloader/onthespot?style=for-the-badge&label=Forks&labelColor=001224&color=1DB954)](https://github.com/ots-downloader/onthespot/network)
+[![GitHub Issues](https://img.shields.io/github/issues/ots-downloader/onthespot?style=for-the-badge&label=Issues&labelColor=001224&color=1DB954)](https://github.com/ots-downloader/onthespot/issues)
+[![GitHub License](https://img.shields.io/github/license/justin025/onthespot?style=for-the-badge&label=License&labelColor=001224&color=1DB954)](https://github.com/ots-downloader/onthespot/blob/main/LICENSE)
+[![Python Version](https://img.shields.io/pypi/pyversion/onthespot?style=for-the-badge&label=Python%203.12%2B&labelColor=001224&color=ff6b6b)](https://www.python.org/download/releases/3.12/)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ots-downloader/onthespot/ci.yml?style=for-the-badge&label=CI%20Status&labelColor=001224&color=1DB954)](https://github.com/ots-downloader/onthespot/actions)
+[![CodeFactor](https://img.shields.io/codefactor/gh/ots-downloader/onthespot?style=for-the-badge&label=Code%20Factor&labelColor=001224&color=1DB954)](https://www.codefactor.io/repository/github/ots-downloader/onthespot/)
+[![Contributors](https://img.shields.io/github/contributors/ots-downloader/onthespot?style=for-the-badge&label=Contributors&labelColor=001224&color=1DB954)](https://github.com/ots-downloader/onthespot/graphs/contributors)
+
 </div>
 
-[![Issues Badge][issues-shield]][issues-url]
-[![Stars Badge][stars-shield]][stars-url]
-[![Downloads Badge][downloads-shield]][downloads-url]
-[![License Badge][license-shield]][license-url]
+<br/>
 
-   <p>
-      Welcome to OnTheSpot!
-      <br />
-      <a href="https://discord.gg/GCQwRBFPk9">Join Discord</a>
-      ·
-      <a href="https://github.com/ots-downloader/onthespot/issues/new?assignees=&labels=bug&projects=&template=bug-report.yml">Report Bug</a>
-      ·
-      <a href="https://github.com/ots-downloader/onthespot/issues/new?assignees=&labels=enhancement&projects=&template=feature_request.yml">Request Feature</a>
-   </p>
-   <br>
+<div align="center">
+
+## 🎵 A modern, easy-to-use music downloader written in Python
+
+**OnTheSpot** is a feature-rich music downloader that supports multiple streaming services, manages a local music library with metadata and cover art, and provides a beautiful web interface for control and monitoring.
+
+| Category | Details |
+|----------|---------|
+| **🔊 Supported Services** | Spotify, Tidal, Apple Music, Deezer, Qobuz, SoundCloud, YouTube Music, Bandcamp, Crunchyroll |
+| **⚙️ Workers** | ParsingWorker, DownloadWorker, RetryWorker, AccountPoolLoader (all threaded) |
+| **🌐 Frontend** | React 19 + Vite + Tailwind CSS (served by FastAPI) |
+| **🗂️ Library** | Indexed metadata, cover art, M3U playlists, search & filtering |
+| **🔧 Configuration** | JSON config + encrypted credential store (Fernet) |
+| **📦 Deployment** | Docker, Unraid, standalone Python, Companion for Spotify Connect |
+
 </div>
 
-This branch provides OnTheSpot as a single-process web application: FastAPI
-serves both the API and the compiled React UI on port `6767`. It supports
-multi-service search, download profiles and queue controls, a local library,
-Spotify playlist sorting/automation, account workers, themes, diagnostics, and
-portable Docker/Unraid deployment.
+<br/>
 
-Quick start with Docker Compose:
+<div align="center">
+
+## 🚀 Quick Start
+
+### Docker Compose (recommended)
 
 ```bash
 git clone --branch fastapi-dev --single-branch https://github.com/ots-downloader/onthespot.git
@@ -39,67 +48,291 @@ docker compose up -d --build
 ```
 
 Open `http://127.0.0.1:6767`, or the mapped address of the Docker/Unraid host.
-See the installation guide before deploying so media, configuration, account
-sessions, and playlist automation are stored in persistent folders.
 
-Documentation:
+### Standalone (Python)
 
-1. [**Installation Guide**](docs/INSTALLATION.md)
-2. [**Basic Usage Instructions**](docs/USAGE.md)
-3. [**Release Feature Matrix**](docs/FEATURE_MATRIX.md)
+```bash
+# Clone and install
+git clone --branch fastapi-dev --single-branch https://github.com/ots-downloader/onthespot.git
+cd onthespot
+pip install -e api/
+# Or: pip install -r api/requirements.txt
 
-### Remote Spotify Connect companion
+# Start the application
+cd api
+python -m onthespot.main
+# Or: uvicorn src.onthespot.main:app --host 127.0.0.1 --port 8000
+```
 
-If the OnTheSpot web/API service runs remotely (for example in Docker on
-Unraid) while Spotify is running on a desktop or phone LAN, use the bundled
-[Spotify Connect companion](companion/README.md). It keeps Spotify's local
-mDNS discovery on the Spotify user's LAN and sends only a short-lived pairing
-payload to the OnTheSpot server over the server URL. Tailscale can carry that
-API request, but it does not extend Spotify's local discovery broadcasts.
+Open `http://127.0.0.1:8000` to access the web interface.
 
-> [!CAUTION]
-> Currently 1 user has reported having their Spotify account locked, the account was returned to them by emailing support. This notice will be updated if any further cases come to our attention.
+</div>
 
-## Screenshots
+<br/>
 
-![Search](assets/images/search.png)
-![Download Queue](assets/images/download_queue.png)
-![Settings](assets/images/settings.png)
+<div align="center">
 
-## Need More Help?
+## 📦 Features
 
-If you have any questions or run into issues while using OnTheSpot, feel free to ask for assistance by:
+### Music Download & Services
 
-- [**Opening an Issue**](https://github.com/ots-downloader/onthespot/issues)
-- [**Joining Our Discord**](https://discord.gg/GCQwRBFPk9)
+| Feature | Description |
+|---------|-------------|
+| **Multi-service search** | Search across Spotify, Tidal, Apple Music, Deezer, Qobuz, SoundCloud, YouTube Music, Bandcamp, Crunchyroll |
+| **Download profiles** | Configure format, bitrate, download path per profile |
+| **Path formatters** | Configurable file organization (Tracks, Albums, Movies, Shows, Podcasts) |
+| **M3U playlist generation** | Auto-generate playlists with embedded metadata |
+| **Video support** | Crunchyroll video downloads with chapters and subtitles |
+| **YouTube Music** | Audio extraction with browser/cookie authentication |
 
-## Contributing
+### Library Management
 
-If you encounter bugs, have suggestions, or would like to help translate the app to your native language don't hesitate to [**open an issue**](https://github.com/ots-downloader/onthespot/issues) or submit a pull request.
+| Feature | Description |
+|---------|-------------|
+| **Local library indexing** | Scan and index music files with full metadata |
+| **Metadata editing** | Edit ID3/Vorbis/MP4 tags via ffmpeg |
+| **Cover art** | Download and embed album artwork |
+| **Duplicate detection** | Find and manage duplicate files |
+| **File verification** | Verify downloaded file integrity |
+| **Backup/export** | Export settings, queue, library, and history |
 
-## Disclaimer
+### Web Interface
 
-OnTheSpot is intended to be used in compliance with DMCA, Section 1201, for educational, private and fair use.
-OnTheSpot contributors are not responsible for any misuse of the program or source code.
+| Feature | Description |
+|---------|-------------|
+| **Real-time queue** | SSE connections for live status updates |
+| **Download controls** | Pause, resume, retry, cancel, delete, reorder, batch actions |
+| **Settings page** | Full configuration of all options |
+| **Diagnostics** | System health, rate limits, disk usage, worker status |
+| **Log viewer** | Retrieve and download application logs |
+| **Statistics** | Download history, success rates, format analytics |
 
-For further information, please see the following [**disclaimer**](DISCLAIMER.md).
+### Spotify Connect Companion
 
-<!-- Issues Badge -->
+| Feature | Description |
+|---------|-------------|
+| **ZeroConf discovery** | LAN-based Spotify Connect without Tailscale extension |
+| **Pairing flow** | Short-lived credential payload to remote server |
+| **Tailscale support** | Works across NATs and remote networks |
+| **One-shot cleanup** | Auto-remove temporary companion folder after pairing |
 
+</div>
+
+<br/>
+
+<div align="center">
+
+## 🏗️ Architecture
+
+```mermaid
+graph TD
+    subgraph "Frontend (React + Vite)"
+        A[Web UI] -->|SSE| B[FastAPI /sse/{user_id}]
+    end
+    
+    subgraph "FastAPI Backend"
+        B -->|API Routes| C[main.py]
+        C -->|Workers| D[ParsingWorker]
+        C -->|Workers| E[DownloadWorker]
+        C -->|Workers| F[RetryWorker]
+        C -->|Workers| G[AccountPoolLoader]
+    end
+    
+    subgraph "Shared State"
+        D -->|parsing queue| H[runtimedata.py]
+        E -->|download queue| H
+        F -->|retry queue| H
+        G -->|account pool| H
+    end
+    
+    subgraph "Service Integrations"
+        H -->|yt-dlp| I[services_middleware.py]
+        I -->|librespot| J[Spotify]
+        I -->|yt-dlp| K[Tidal/YouTube Music/SoundCloud]
+        I -->|custom| L[Apple Music/Deezer/Qobuz/Bandcamp/Crunchyroll]
+    end
+    
+    subgraph "Persistent Storage"
+        H -->|JSON config| M[otsconfig.json]
+        H -->|encrypted| N[credentials.enc]
+        H -->|history| O[download-history.json]
+        H -->|library index| P[.onthespot-library.json]
+    end
+```
+
+</div>
+
+<br/>
+
+<div align="center">
+
+## 📡 API Overview
+
+### Core Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/profiles` | GET/POST | Manage download profiles |
+| `/queue/downloads` | GET | Query download queue |
+| `/queue/downloads/state` | GET | Download state & speed |
+| `/queue/pending` | GET | Query pending queue |
+| `/queue/parsing` | GET | Query parsing queue |
+| `/config/get` | GET | Get current configuration |
+| `/config/set` | PATCH | Update configuration settings |
+| `/config/save` | POST | Save configuration |
+| `/config/export` | GET | Export configuration |
+| `/config/import` | POST | Import configuration |
+| `/config/reset` | POST | Reset to defaults |
+| `/accounts/youtube-auth/status` | GET | YouTube auth status |
+| `/accounts/add` | POST | Add account for service |
+| `/accounts/remove` | POST | Remove account |
+| `/accounts/get` | GET | Get all accounts |
+| `/accounts/health` | GET | Account health check |
+| `/backup/export` | GET | Export backup (settings + queue + library) |
+| `/diagnostics` | GET | System diagnostics |
+| `/logs` | GET | Retrieve logs |
+| `/api/sse/{user_id}` | GET | Server-Sent Events |
+
+### Search & Queue
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/search` | POST | Search all configured services |
+| `/query/url` | POST | URL-based search |
+| `/queue/downloads/action` | POST | Action on specific queue item |
+| `/queue/downloads/batch` | POST | Batch action on queue items |
+| `/queue/downloads/verify` | POST | Verify download integrity |
+| `/queue/pending/action` | POST | Action on pending item |
+
+</div>
+
+<br/>
+
+<div align="center">
+
+## 📚 Documentation
+
+| Guide | Description |
+|-------|-------------|
+| [Installation Guide](docs/INSTALLATION.md) | Setup, Docker, dependencies, initial configuration |
+| [Usage Guide](docs/USAGE.md) | Basic operations, download profiles, library management |
+| [Feature Matrix](docs/FEATURE_MATRIX.md) | Complete feature overview per service |
+| [Spotify Companion](companion/README.md) | ZeroConf Spotify Connect pairing |
+| [API Reference](api/src/onthespot/main.py) | All FastAPI endpoints |
+
+</div>
+
+<br/>
+
+<div align="center">
+
+## 🛠️ Technology Stack
+
+| Layer | Technology |
+|-------|------------|
+| **Backend** | FastAPI (Python 3.12+), yt-dlp, librespot, cryptography, ffmpeg |
+| **Configuration** | JSON config + Fernet-encrypted credential store |
+| **Frontend** | React 19, Vite, Tailwind CSS, lucide-react icons |
+| **Container** | Docker, Docker Compose, Unraid |
+| **Authentication** | OAuth2, browser cookies, API tokens |
+| **Rate Limiting** | Per-host request locks with shared cooldown |
+| **Caching** | Disk-based HTTP response cache with TTL |
+| **Logging** | Rotating file handlers + stdout, structured JSON |
+
+</div>
+
+<br/>
+
+<div align="center">
+
+## 👥 Contributing
+
+### Ways to Help
+
+- **🐛 Report bugs** — Open an issue with reproduction steps
+- **💡 Request features** — Describe the desired functionality
+- **🔧 Submit PRs** — Fix bugs, add features, improve documentation
+- **🌐 Translate** — Help translate the UI to new languages
+- **📊 Test** — Report on new platforms, test beta features
+- **💬 Spread the word** — Star the repo, share with friends
+
+### Development Setup
+
+```bash
+# 1. Fork and clone
+git clone --branch fastapi-dev --single-branch https://github.com/ots-downloader/onthespot.git
+cd onthespot
+
+# 2. Install dependencies
+cd api
+pip install -e .
+cd ../ui
+npm install
+
+# 3. Start development
+# Terminal 1: FastAPI with auto-reload
+cd api
+python -m onthespot.main
+
+# Terminal 2: React dev server
+cd ui
+npm run dev
+# UI will be at http://localhost:3000
+# API will be at http://localhost:8000
+```
+
+### Coding Standards
+
+- Follow [Black](https://black.readthedocs.io/) formatting (Python)
+- TypeScript strict mode for frontend
+- Add tests for new functionality
+- Update documentation for any new features
+- respect the encrypted credential store pattern
+
+</div>
+
+<br/>
+
+<div align="center">
+
+## 📜 License
+
+[MIT](https://github.com/ots-downloader/onthespot/blob/main/LICENSE) © 2024 OnTheSpot Contributors
+
+</div>
+
+<br/>
+
+<div align="center">
+
+<!-- GitHub bottom section -->
+<div style="display: inline-block; margin: 20px 0;">
+  <a href="https://github.com/ots-downloader/onthespot/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=ots-downloader/onthespot" alt="contributors" />
+  </a>
+</div>
+
+<div style="display: inline-block; margin: 20px 0;">
+  <a href="https://github.com/ots-downloader/onthespot/stargazers">
+    <img src="https://img.shields.io/github/stars/ots-downloader/onthespot?style=for-the-badge&label=Stars&labelColor=001224&color=1DB954" alt="Stars" />
+  </a>
+</div>
+</div>
+
+<br/>
+
+<div align="center">
+<p>Made with ❤️ by the OnTheSpot community</p>
+<!-- GitHub star growth graph -->
+![GitHub Star Growth](https://github-readme-stats.vercel.app/api?username=ots-downloader/onthespot&show_icons=true&theme=radical&count_private=false&include_all_commits=true&locale=en)
+</div>
+</div>
+
+<!-- Badge references -->
 [issues-shield]: https://img.shields.io/github/issues/ots-downloader/onthespot?style=flat&label=Issues&labelColor=001224&color=1DB954
 [issues-url]: https://github.com/ots-downloader/onthespot/issues
-
-<!-- Stars Badge -->
-
 [stars-shield]: https://img.shields.io/github/stars/ots-downloader/onthespot?style=flat&label=Stars&labelColor=001224&color=1DB954
 [stars-url]: https://github.com/ots-downloader/onthespot/stargazers
-
-<!-- Downloads Badge -->
-
+[license-shield]: https://img.shields.io/github/license/justin025/onthespot?style=flat&label=License&labelColor=001224&color=1DB954
 [downloads-shield]: https://img.shields.io/github/downloads/ots-downloader/onthespot/total.svg?style=flat&label=Downloads&labelColor=001224&color=1DB954
 [downloads-url]: https://github.com/ots-downloader/onthespot/releases/
-
-<!-- License Badge -->
-
-[license-shield]: https://img.shields.io/github/license/justin025/onthespot?style=flat&label=License&labelColor=001224&color=1DB954
-[license-url]: https://github.com/ots-downloader/onthespot/blob/main/LICENSE
