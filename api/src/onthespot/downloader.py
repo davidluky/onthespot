@@ -300,6 +300,7 @@ class DownloadWorker:
                     item.item_status = ItemStatus.FAILED
                     progress_hook(item, 0, item.item_status)
                     requeue_item(item)
+                    time.sleep(jittered_delay())
                     continue
 
                 # The temp file is downloaded extensionless as they depend on availability

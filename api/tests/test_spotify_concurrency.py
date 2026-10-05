@@ -3,6 +3,7 @@
 import threading
 import time
 import unittest
+import queue
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
 
@@ -15,6 +16,27 @@ from onthespot.spotify_transport import bound_spotify_requests
 
 
 class SpotifyConcurrencyTests(unittest.TestCase):
+    def test_content_errors_and_timeouts_do_not_close_shared_session(self):
+        for failure in (RuntimeError("Failed fetching audio key!"), queue.Empty()):
+            with self.subTest(failure=type(failure).__name__):
+                token = Mock()
+                token.content_feeder.return_value.load.side_effect = failure
+                item = make_item()
+                with patch("onthespot.services_middleware.reinit_spotify_session") as reinit:
+                    with self.assertRaises((RuntimeError, TimeoutError)):
+                        download_spotify(item, item.item_id, "track", token, str(TEST_ROOT / "failed-setup"))
+                    reinit.assert_not_called()
+                    token.close.assert_not_called()
+
+    def test_unauthenticated_session_still_reconnects(self):
+        token = Mock()
+        token.content_feeder.return_value.load.side_effect = RuntimeError("Session isn't authenticated!")
+        item = make_item()
+        with patch("onthespot.services_middleware.reinit_spotify_session") as reinit:
+            with self.assertRaisesRegex(RuntimeError, "connection lost"):
+                download_spotify(item, item.item_id, "track", token, str(TEST_ROOT / "unauthenticated"))
+            reinit.assert_called_once_with(token)
+
     def test_five_stream_setups_are_serial_but_audio_reads_overlap(self):
         reads = threading.Barrier(5)
         guard = threading.Lock()

@@ -94,11 +94,14 @@ def download_spotify(item: QueueItem, item_id, item_type, token, temp_path):
         except RuntimeError as exc:
             if "alternative track" in str(exc).lower():
                 raise TrackUnavailableError(item_id) from exc
-            reinit_spotify_session(token)
-            raise RuntimeError(f"Spotify session connection lost: {exc}") from exc
+            # An audio-key/content failure does not invalidate the shared
+            # session. Closing it would abort every other active CDN stream.
+            if token.client() is None or "session isn't authenticated" in str(exc).lower():
+                reinit_spotify_session(token)
+                raise RuntimeError(f"Spotify session connection lost: {exc}") from exc
+            raise
         except queue.Empty as exc:
-            reinit_spotify_session(token)
-            raise RuntimeError(f"Spotify session connection lost: {exc}") from exc
+            raise TimeoutError("Spotify stream setup timed out") from exc
 
     source = stream.input_stream.stream()
     source.wait_lock = SpotifyChunkCondition(source)
